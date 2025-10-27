@@ -4,7 +4,7 @@ import * as Service_Question from "../services/Service_Question";
 
 // Cuando se elijan las opciones para las preguntas y se pulse el botón de las preguntas se generá una bateria de preguntas con estas opciones
 export class AppControler{
-    async generarContenedorPreguntas(contenedor: HTMLElement): Promise<HTMLElement> {
+    async generarContenedorPreguntas(contenedor: HTMLElement): Promise<void> {
         const selectCategoria = document.getElementById('selectCategoria') as HTMLSelectElement;
         const selectDificultad = document.getElementById('selectDificultad') as HTMLSelectElement;
         const selectTipo = document.getElementById('selectTipo') as HTMLSelectElement;
