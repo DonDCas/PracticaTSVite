@@ -18,11 +18,11 @@ async function cargarFormularioPreguntas() {
   divFormulario!.appendChild(await appController.generarFomularioPreguntas());
   let button : HTMLElement | null = document.getElementById('buttonOpciones');
   button?.addEventListener('click', () => cargarPreguntas());
-  body!.appendChild(divFormulario!);
+  //body!.appendChild(divFormulario!);
 }
 
 async function cargarPreguntas() {
   contenedor!.innerHTML = '';
-  body.appendChild(await appController.generarContenedorPreguntas(contenedor!));
-
+  await appController.generarContenedorPreguntas(contenedor!);
+  alert('Preguntas cargadas correctamente');
 }
