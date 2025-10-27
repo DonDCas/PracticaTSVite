@@ -11,15 +11,12 @@ export class AppControler{
         let categoriaSelect : string = selectCategoria?.value ?? '';
         let dificultadSelect : string = selectDificultad?.value ?? '';
         let tipoSelect : string = selectTipo?.value ?? '';
-        let preguntas: Question[] = await Service_Question.getPreguntas(
+        await Service_Question.getPreguntas(
         '10',
         categoriaSelect,
         dificultadSelect,
         tipoSelect
-        );
-        contenedor.innerHTML = '';
-
-        contenedor.appendChild(DOMController.crearBateriaPreguntas(preguntas));
+        ).then(preguntas => contenedor.appendChild(DOMController.crearBateriaPreguntas(preguntas)));
     }
     //Cuando se pulse el botón "Hacer preguntas" se genera un formulario para elegir, categoria, dificultad y tipo de pregunta
     async generarFomularioPreguntas(): Promise<HTMLElement> {

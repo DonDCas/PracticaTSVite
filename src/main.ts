@@ -21,6 +21,5 @@ async function cargarFormularioPreguntas() {
 }
 
 async function cargarPreguntas() {
-  contenedor!.innerHTML = '';
   await appController.generarContenedorPreguntas(contenedor!);
 }

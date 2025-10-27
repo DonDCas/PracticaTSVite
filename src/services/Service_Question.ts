@@ -18,8 +18,15 @@ export async function getPreguntas(
     if (dificultad) params.append('difficulty', dificultad);
     if (tipo) params.append('type', tipo);
     let urlFinal : string = `${URL_QUESTIONS}/api.php?${params.toString()}`;
-    const res = await fetch(urlFinal);
-    if (!res.ok) throw new Error('Error al obtener las preguntas');
+    let res: Response;
+    try{
+        res = await fetch(urlFinal);
+        if (!res.ok) throw new Error('Error al obtener las preguntas');
+
+    } catch (error) {
+        alert("No se han podido cargar las preguntas. Inténtelo de nuevo más tarde.");
+        return [];
+    }
     const data = await res.json();
     return data.results as Question[];
 
