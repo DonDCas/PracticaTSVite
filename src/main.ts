@@ -1,6 +1,6 @@
-import './style/style.css'
+/*import './style/style.css'
 import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
+import viteLogo from '/vite.svg'*/
 import { AppControler } from './app/appControler.ts'
 
 const body : HTMLElement = document.body;
@@ -16,10 +16,13 @@ async function cargarFormularioPreguntas() {
   let divFormulario : HTMLElement | null = document.getElementById('formularioPreguntas');
   divFormulario!.innerHTML = '';
   divFormulario!.appendChild(await appController.generarFomularioPreguntas());
+  let button : HTMLElement | null = document.getElementById('buttonOpciones');
+  button?.addEventListener('click', () => cargarPreguntas());
   body!.appendChild(divFormulario!);
 }
 
 async function cargarPreguntas() {
   contenedor!.innerHTML = '';
   body.appendChild(await appController.generarContenedorPreguntas(contenedor!));
+
 }

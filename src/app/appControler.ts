@@ -1,7 +1,8 @@
-import type { Question } from "../interfaces/Question";
+import type { Categoria, Question } from "../interfaces/Question";
 import { DOMController } from "./DOMController";
 import * as Service_Question from "../services/Service_Question";
 
+// Cuando se elijan las opciones para las preguntas y se pulse el botón de las preguntas se generá una bateria de preguntas con estas opciones
 export class AppControler{
     async generarContenedorPreguntas(contenedor: HTMLElement): Promise<HTMLElement> {
         const selectCategoria = document.getElementById('selectCategoria') as HTMLSelectElement;
@@ -14,9 +15,9 @@ export class AppControler{
             await Service_Question.getPreguntas('10', categoriaSelect, dificultadSelect, tipoSelect).
             then( (preguntas: Question[]) => DOMController.crearBateriaPreuntas(preguntas))
         );
-        
         return contenedor;
     }
+    //Cuando se pulse el botón "Hacer preguntas" se genera un formulario para elegir, categoria, dificultad y tipo de pregunta
     async generarFomularioPreguntas(): Promise<HTMLElement> {
         const formulario : HTMLElement | null = document.createElement('form');
         formulario.id = 'formularioOpciones';
@@ -31,7 +32,6 @@ export class AppControler{
         formulario.appendChild(document.createElement('br'));
         const buttonOpciones : HTMLElement | null  = document.createElement('button');
         buttonOpciones.id = 'buttonOpciones';
-        buttonOpciones.setAttribute('onclick', 'cargarPreguntas()');
         buttonOpciones.textContent = 'Elegir opciones';
         formulario.appendChild(buttonOpciones);
         formulario.appendChild(document.createElement('br'));
@@ -46,7 +46,7 @@ export class AppControler{
         return Object.values(Service_Question.obtenerTipos());
     }
 
-    async obtenerCategorias(): Promise<string[]> {
+    async obtenerCategorias(): Promise<Categoria[]> {
         return await Service_Question.obtenerCategorias();
     }
 }

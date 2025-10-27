@@ -22,3 +22,7 @@ export const TypeKind = {
 
 export type TypeKind = (typeof TypeKind)[keyof typeof TypeKind];
 
+export interface Categoria {
+    id:   number;
+    name: string;
+}

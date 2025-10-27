@@ -1,4 +1,4 @@
-import type { Question } from "../interfaces/Question";
+import type { Categoria, Question } from "../interfaces/Question";
 
 export class DOMController{
 
@@ -18,7 +18,7 @@ export class DOMController{
         return selectTipo;
     }
 
-    static crearFormularioPreguntas(categorias: string[]): HTMLElement {
+    static crearFormularioPreguntas(categorias: Categoria[]): HTMLElement {
         const selectCategoria : HTMLSelectElement = document.createElement('select');
         selectCategoria.id = 'selectCategoria';
         const anyOption : HTMLOptionElement  = document.createElement('option');
@@ -28,8 +28,8 @@ export class DOMController{
         
         for (const categoria of categorias) {
             const option : HTMLOptionElement  = document.createElement('option');
-            option.value = categoria;
-            option.text = categoria;
+            option.value = categoria.id.toString();
+            option.text = categoria.name;
             selectCategoria.appendChild(option);
         }
         
