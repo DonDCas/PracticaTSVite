@@ -3,7 +3,6 @@ import typescriptLogo from './typescript.svg'
 import viteLogo from '/vite.svg'*/
 import { AppControler } from './app/appControler.ts'
 
-const body : HTMLElement = document.body;
 const appController : AppControler = new AppControler();
 const bottonHacerPregunta : HTMLElement | null = document.getElementById('hacerPregunta');
 let contenedor : HTMLElement | null = document.getElementById('contenedor');
@@ -24,5 +23,4 @@ async function cargarFormularioPreguntas() {
 async function cargarPreguntas() {
   contenedor!.innerHTML = '';
   await appController.generarContenedorPreguntas(contenedor!);
-  alert('Preguntas cargadas correctamente');
 }
