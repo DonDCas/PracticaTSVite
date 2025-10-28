@@ -58,18 +58,42 @@ export class DOMController{
         const div : HTMLElement = document.createElement("div");
         div.id = 'divPreguntas';
         const form : HTMLElement = document.createElement("form");
+        form.id = 'formPreguntas';
         preguntas.forEach((pregunta, index : number)=> {
-            const labelPregunta = document.createElement("label")
-            const leyendPregunta = document.createElement('legend')
+            const labelPregunta : HTMLElement = document.createElement("label")
+            const leyendPregunta : HTMLElement = document.createElement('legend')
             leyendPregunta.textContent = `Pregunta nº${index+1}`
             labelPregunta.appendChild(leyendPregunta);
-
-
-
-
+            const divPregunta : HTMLElement = document.createElement("div");
+            divPregunta.className = 'divPregunta';
+            divPregunta.textContent = pregunta.question;
+            const divImagenPorCategoria : HTMLElement = document.createElement("div");
+            
+            const divRespuestas : HTMLElement = document.createElement("div");
+            divRespuestas.className = 'divRespuestas';
+            const respuestas : string[] = [...pregunta.incorrect_answers];
+            respuestas.push(pregunta.correct_answer);
+            respuestas.sort(() => Math.random() - 0.5); // Mezclar respuestas
+            for (const respuesta of respuestas){
+                const inputRespuesta : HTMLInputElement = document.createElement("input");
+                inputRespuesta.type = 'radio';
+                inputRespuesta.name = `pregunta${index}`;
+                inputRespuesta.value = respuesta;
+                inputRespuesta.id = `pregunta${index}_respuesta_${respuesta}`;
+                inputRespuesta.textContent = respuesta;
+                divRespuestas.appendChild(inputRespuesta);
+            }
+            divImagenPorCategoria.className = 'divImagenCategoria';
+            labelPregunta.appendChild(divPregunta);
+            labelPregunta.appendChild(divImagenPorCategoria);
+            labelPregunta.appendChild(divRespuestas);
             form.appendChild(labelPregunta);
         }); 
-
+        const submitButton : HTMLButtonElement = document.createElement("button");
+        submitButton.type = 'button';
+        submitButton.id = 'btnEnviarRespuestas';
+        submitButton.textContent = 'enviar Respuestas';
+        form.appendChild(submitButton);
         div.appendChild(form)
         return div;
     }

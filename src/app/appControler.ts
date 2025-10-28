@@ -11,12 +11,32 @@ export class AppControler{
         let categoriaSelect : string = selectCategoria?.value ?? '';
         let dificultadSelect : string = selectDificultad?.value ?? '';
         let tipoSelect : string = selectTipo?.value ?? '';
-        await Service_Question.getPreguntas(
+        let preguntas : Question[] = await Service_Question.getPreguntas(
         '10',
         categoriaSelect,
         dificultadSelect,
         tipoSelect
-        ).then(preguntas => contenedor.appendChild(DOMController. crearBateriaPreguntas(preguntas)));
+        )
+        contenedor.appendChild(DOMController.crearBateriaPreguntas(preguntas));
+        let buttonEnviarRespuestas : HTMLElement | null = document.getElementById('btnEnviarRespuestas');
+        buttonEnviarRespuestas?.addEventListener('click', () => {
+            alert('Respuestas enviadas. ¡Gracias por participar!');
+            let formPreguntas : HTMLElement | null = document.getElementById('formPreguntas');
+            if (formPreguntas) {
+                const respuestas: { [key: string]: string } = {};
+                const radios: HTMLInputElement[] = Array.from(formPreguntas.querySelectorAll('input[type="radio"]:checked'));;
+                radios.forEach(radio => {
+                    const preguntaId = radio.name;
+                    const respuesta = radio.value;
+                    respuestas[preguntaId] = respuesta;
+                });
+                let puntuacion : number = 0;
+                preguntas.forEach((pregunta, index) => {
+                    if (respuestas[`pregunta${index}`] === pregunta.correct_answer) puntuacion++;
+                });
+                alert(`Has obtenido una puntuación de ${puntuacion} sobre ${preguntas.length}`);
+            }
+        });
     }
     //Cuando se pulse el botón "Hacer preguntas" se genera un formulario para elegir, categoria, dificultad y tipo de pregunta
     async generarFomularioPreguntas(): Promise<HTMLElement> {
@@ -31,7 +51,8 @@ export class AppControler{
         // Agregamos al formulario el select de tipos
         formulario.appendChild(DOMController.crearSelectTipos(this.obtenerTipos()));
         formulario.appendChild(document.createElement('br'));
-        const buttonOpciones : HTMLElement | null  = document.createElement('button');
+        const buttonOpciones : HTMLButtonElement | null  = document.createElement('button');
+        buttonOpciones.type= 'button'
         buttonOpciones.id = 'buttonOpciones';
         buttonOpciones.textContent = 'Elegir opciones';
         formulario.appendChild(buttonOpciones);
