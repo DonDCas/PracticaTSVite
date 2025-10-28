@@ -1,5 +1,5 @@
 import type { Categoria, Question } from "../interfaces/Question";
-import { getImagenPorCategoria } from "../services/Service_Images";
+//import { getImagenPorCategoria } from "../services/Service_Images";
 
 export class DOMController{
 
