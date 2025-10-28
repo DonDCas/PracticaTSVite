@@ -1,4 +1,5 @@
 :root {
+  /* Mantener estilos de fuente y tema */
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -13,84 +14,161 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 body {
+  /* Centrado vertical y horizontal */
   margin: 0;
   display: flex;
-  place-items: center;
+  flex-direction: column; /* Apilar los elementos de la página */
+  align-items: center; /* Centrar horizontalmente */
   min-width: 320px;
   min-height: 100vh;
+  padding-top: 20px; /* Pequeño padding superior */
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
+/* ------------------------------------------- */
+/* ESTILOS GLOBALES Y CONTENEDOR PRINCIPAL */
+/* ------------------------------------------- */
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  /* Contenedor del botón inicial */
   text-align: center;
+  margin-bottom: 20px;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #3178c6aa);
+#formularioPreguntas {
+  /* Contenedor del formulario de opciones (selects) */
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 400px;
 }
 
-.card {
-  padding: 2em;
+#contenedor {
+  /* Contenedor principal de las preguntas */
+  width: 100%;
+  max-width: 800px;
+  padding: 10px;
 }
 
-.read-the-docs {
-  color: #888;
+/* ------------------------------------------- */
+/* ESTILOS DEL FORMULARIO DE OPCIONES */
+/* ------------------------------------------- */
+
+#formularioOpciones {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espacio entre los selects */
+    padding: 20px;
+    border: 1px solid #646cff;
+    border-radius: 8px;
+    background-color: #1a1a1a;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+#formularioOpciones select,
+#formularioOpciones button {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #3c3c3c;
+    font-size: 1em;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/* ------------------------------------------- */
+/* ESTILOS DE LA BATERÍA DE PREGUNTAS */
+/* ------------------------------------------- */
+
+#formPreguntas {
+    display: flex;
+    flex-direction: column;
+    gap: 25px; /* Espacio entre cada pregunta */
+    text-align: left;
+}
+
+/* Estilo para cada pregunta (el <label> que contiene todo) */
+#formPreguntas label {
+    display: block;
+    border: 1px solid #3c3c3c;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #333;
+    transition: background-color 0.3s;
+}
+
+#formPreguntas label:hover {
+    background-color: #444;
+}
+
+/* Estilo para el título de la pregunta (legend) */
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #646cff; /* Color distintivo */
+    margin-bottom: 10px;
+    border-bottom: 2px solid #646cff;
+    padding-bottom: 5px;
+}
+
+/* Estilo para el texto de la pregunta (divPregunta) */
+.divPregunta {
+    font-size: 1.1em;
+    margin-bottom: 15px;
+    padding-left: 5px;
+}
+
+/* Contenedor de las respuestas */
+.divRespuestas {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 10px;
+    padding-left: 5px;
+}
+
+/* ------------------------------------------- */
+/* NUEVOS ESTILOS PARA LAS OPCIONES DE RESPUESTA */
+/* ------------------------------------------- */
+
+/* Estilo para la pareja input + label */
+.divRespuestas label {
+    display: flex; /* Para alinear el radio y el texto */
+    align-items: center;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: #2b2b2b;
+    transition: background-color 0.2s;
+    border: 1px solid transparent;
+    font-weight: normal; /* Sobrescribe el font-weight de la etiqueta principal */
+}
+
+.divRespuestas label:hover {
+    background-color: #3e3e3e;
+}
+
+/* Estilo cuando el radio está seleccionado */
+.divRespuestas input[type="radio"]:checked + label {
+    background-color: #646cff;
+    border-color: #646cff;
+    color: white;
+}
+
+/* Ocultar el input por defecto y usar el label como área de clic */
+.divRespuestas input[type="radio"] {
+    margin-right: 10px;
+}
+
+/* ------------------------------------------- */
+/* Estilo para el botón de enviar */
+/* ------------------------------------------- */
+
+#btnEnviarRespuestas {
+    align-self: center; /* Centrar el botón dentro del formulario */
+    margin-top: 30px;
+    padding: 10px 30px;
+    background-color: #646cff;
+    color: white;
+    font-weight: bold;
+    border: none;
+}
+
+#btnEnviarRespuestas:hover {
+    background-color: #535bf2;
 }

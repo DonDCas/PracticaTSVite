@@ -20,7 +20,6 @@ export async function getPreguntas(
     let urlFinal : string = `${URL_QUESTIONS}/api.php?${params.toString()}`;
     let res: Response;
     try{
-        alert(urlFinal);
         res = await fetch(urlFinal);
         if (!res.ok) throw new Error('Error al obtener las preguntas');
     } catch (error) {

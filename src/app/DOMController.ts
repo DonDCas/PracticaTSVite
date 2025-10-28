@@ -1,5 +1,5 @@
 import type { Categoria, Question } from "../interfaces/Question";
-//import { getImagenPorCategoria } from "../services/Service_Images";
+import { getImagenPorCategoria } from "../services/Service_Images";
 
 export class DOMController{
 
@@ -59,7 +59,7 @@ export class DOMController{
         div.id = 'divPreguntas';
         const form : HTMLElement = document.createElement("form");
         form.id = 'formPreguntas';
-        preguntas.forEach((pregunta, index : number)=> {
+        preguntas.forEach(async (pregunta, index : number)=> {
             const labelPregunta : HTMLElement = document.createElement("label")
             const leyendPregunta : HTMLElement = document.createElement('legend')
             leyendPregunta.textContent = `Pregunta nº${index+1}`
@@ -68,21 +68,51 @@ export class DOMController{
             divPregunta.className = 'divPregunta';
             divPregunta.textContent = pregunta.question;
             const divImagenPorCategoria : HTMLElement = document.createElement("div");
+            divImagenPorCategoria.className = 'divImagenCategoria';
             
+            // ⭐️ 3. LLAMAR A LA API Y CREAR EL ELEMENTO IMAGEN
+            try {
+                // La categoría del servicio OpenTDB es un string (ej: "Science & Nature")
+                const imageUrl = await getImagenPorCategoria(pregunta.category);
+                
+                const imgElement: HTMLImageElement = document.createElement("img");
+                imgElement.src = imageUrl;
+                imgElement.alt = `Imagen relacionada con ${pregunta.category}`;
+                
+                // Estilos básicos para que la imagen se vea bien (se pueden mover a style.css)
+                imgElement.style.width = '100%'; 
+                imgElement.style.maxHeight = '200px'; 
+                imgElement.style.objectFit = 'cover';
+                imgElement.style.borderRadius = '8px';
+                imgElement.style.marginBottom = '10px';
+                
+                divImagenPorCategoria.appendChild(imgElement);
+
+            } catch (error) {
+                // Manejo de errores si la API de Pexels no encuentra la categoría
+                console.error(`No se pudo obtener imagen para ${pregunta.category}.`, error);
+                const pError = document.createElement('p');
+                pError.textContent = `(No hay imagen disponible para ${pregunta.category})`;
+                divImagenPorCategoria.appendChild(pError);
+            }
             const divRespuestas : HTMLElement = document.createElement("div");
             divRespuestas.className = 'divRespuestas';
             const respuestas : string[] = [...pregunta.incorrect_answers];
             respuestas.push(pregunta.correct_answer);
             respuestas.sort(() => Math.random() - 0.5); // Mezclar respuestas
-            for (const respuesta of respuestas){
+            respuestas.forEach(respuesta => {
                 const inputRespuesta : HTMLInputElement = document.createElement("input");
                 inputRespuesta.type = 'radio';
                 inputRespuesta.name = `pregunta${index}`;
                 inputRespuesta.value = respuesta;
-                inputRespuesta.id = `pregunta${index}_respuesta_${respuesta}`;
-                inputRespuesta.textContent = respuesta;
+                let idRespuesta : string = `pregunta${index}_respuesta_${respuesta}`;
+                inputRespuesta.id = idRespuesta;
+                const labelRespuesta = document.createElement("label");
+                labelRespuesta.htmlFor = idRespuesta;
+                labelRespuesta.innerText = respuesta;
                 divRespuestas.appendChild(inputRespuesta);
-            }
+                divRespuestas.appendChild(labelRespuesta);
+            });
             divImagenPorCategoria.className = 'divImagenCategoria';
             labelPregunta.appendChild(divPregunta);
             labelPregunta.appendChild(divImagenPorCategoria);
@@ -98,3 +128,4 @@ export class DOMController{
         return div;
     }
 }
+
