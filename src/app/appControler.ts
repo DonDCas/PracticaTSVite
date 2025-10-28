@@ -16,7 +16,7 @@ export class AppControler{
         categoriaSelect,
         dificultadSelect,
         tipoSelect
-        ).then(preguntas => contenedor.appendChild(DOMController.crearBateriaPreguntas(preguntas)));
+        ).then(preguntas => contenedor.appendChild(DOMController. crearBateriaPreguntas(preguntas)));
     }
     //Cuando se pulse el botón "Hacer preguntas" se genera un formulario para elegir, categoria, dificultad y tipo de pregunta
     async generarFomularioPreguntas(): Promise<HTMLElement> {

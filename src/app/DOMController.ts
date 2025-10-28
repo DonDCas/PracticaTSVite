@@ -55,15 +55,22 @@ export class DOMController{
     }
 
     static crearBateriaPreguntas(preguntas: Question[]): HTMLElement {
-    const contenedorPreguntas : HTMLElement = document.createElement('div');
-    for (const pregunta of preguntas) {
-        const divPregunta : HTMLElement = document.createElement('div');
-        divPregunta.className = 'pregunta';
-        const tituloPregunta : HTMLElement = document.createElement('h3');
-        tituloPregunta.textContent = pregunta.question;
-        divPregunta.appendChild(tituloPregunta);
-        contenedorPreguntas.appendChild(divPregunta);
+        const div : HTMLElement = document.createElement("div");
+        div.id = 'divPreguntas';
+        const form : HTMLElement = document.createElement("form");
+        preguntas.forEach((pregunta, index : number)=> {
+            const labelPregunta = document.createElement("label")
+            const leyendPregunta = document.createElement('legend')
+            leyendPregunta.textContent = `Pregunta nº${index+1}`
+            labelPregunta.appendChild(leyendPregunta);
+
+
+
+
+            form.appendChild(labelPregunta);
+        }); 
+
+        div.appendChild(form)
+        return div;
     }
-    return contenedorPreguntas;
-}
 }
